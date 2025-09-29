@@ -53,7 +53,11 @@ public class CommonCsvService implements CsvService {
 
     @Override
     public Table parseFromString(String input) {
-        return null;
+        try {
+            return this.parse(new StringReader(input));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -86,6 +90,6 @@ public class CommonCsvService implements CsvService {
 
     @Override
     public String format(Table table) {
-        return "";
+        return CSVFormat.DEFAULT.format(table.getEntries());
     }
 }
